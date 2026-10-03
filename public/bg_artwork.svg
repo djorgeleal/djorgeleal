@@ -1,0 +1,190 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1080 1350' width='1080' height='1350'>
+  <defs>
+    <linearGradient id='bgGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#08080a'/>
+      <stop offset='50%' stop-color='#0f0e13'/>
+      <stop offset='100%' stop-color='#050505'/>
+    </linearGradient>
+
+    <linearGradient id='beamGrad' x1='0%' y1='0%' x2='80%' y2='100%'>
+      <stop offset='0%' stop-color='#ffffff' stop-opacity='0.45'/>
+      <stop offset='25%' stop-color='#ffffff' stop-opacity='0.22'/>
+      <stop offset='60%' stop-color='#ff2244' stop-opacity='0.08'/>
+      <stop offset='100%' stop-color='#ffffff' stop-opacity='0'/>
+    </linearGradient>
+
+    <linearGradient id='bloodGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#ff1a3c'/>
+      <stop offset='50%' stop-color='#c4001d'/>
+      <stop offset='100%' stop-color='#5e0008'/>
+    </linearGradient>
+
+    <linearGradient id='bevelTop' x1='0%' y1='0%' x2='0%' y2='100%'>
+      <stop offset='0%' stop-color='#ff4d66'/>
+      <stop offset='100%' stop-color='#b30018'/>
+    </linearGradient>
+
+    <linearGradient id='bevelSide' x1='0%' y1='0%' x2='100%' y2='0%'>
+      <stop offset='0%' stop-color='#61020d'/>
+      <stop offset='100%' stop-color='#260004'/>
+    </linearGradient>
+
+    <radialGradient id='spotlight' cx='15%' cy='10%' r='80%'>
+      <stop offset='0%' stop-color='#ffffff' stop-opacity='0.35'/>
+      <stop offset='40%' stop-color='#c4001d' stop-opacity='0.15'/>
+      <stop offset='80%' stop-color='#000000' stop-opacity='0.9'/>
+      <stop offset='100%' stop-color='#000000' stop-opacity='1'/>
+    </radialGradient>
+
+    <filter id='noise' x='0%' y='0%' width='100%' height='100%'>
+      <feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' result='noise'/>
+      <feColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0'/>
+      <feComposite in2='SourceGraphic' in='glitch' operator='in'/>
+    </filter>
+
+    <filter id='bloodGlow' x='-20%' y='-20%' width='140%' height='140%'>
+      <feGaussianBlur stdDeviation='12' result='blur'/>
+      <feMerge>
+        <feMergeNode in='blur'/>
+        <feMergeNode in='SourceGraphic'/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Base background -->
+  <rect width='1080' height='1350' fill='url(#bgGrad)'/>
+
+  <!-- Volumetric light shaft from top-left -->
+  <polygon points='-50,-50 320,-50 950,1350 400,1350' fill='url(#beamGrad)' opacity='0.75'/>
+
+  <!-- Vignette overlay -->
+  <rect width='1080' height='1350' fill='url(#spotlight)' mix-blend-mode='screen'/>
+
+  <!-- Gothic 3D Typography: djorgeleal -->
+  <g id='typography-djorgeleal' filter='url(#bloodGlow)'>
+    <!-- Shadow & 3D extrusion layers -->
+    <text x='540' y='270' text-anchor='middle' font-family='Impact, "Arial Black", sans-serif' font-weight='900' font-size='155' letter-spacing='-4' fill='#2b0005' transform='skewY(-3) translate(28, 28)'>djorgeleal</text>
+    <text x='540' y='270' text-anchor='middle' font-family='Impact, "Arial Black", sans-serif' font-weight='900' font-size='155' letter-spacing='-4' fill='#42020a' transform='skewY(-3) translate(22, 22)'>djorgeleal</text>
+    <text x='540' y='270' text-anchor='middle' font-family='Impact, "Arial Black", sans-serif' font-weight='900' font-size='155' letter-spacing='-4' fill='#660010' transform='skewY(-3) translate(16, 16)'>djorgeleal</text>
+    <text x='540' y='270' text-anchor='middle' font-family='Impact, "Arial Black", sans-serif' font-weight='900' font-size='155' letter-spacing='-4' fill='#94041a' transform='skewY(-3) translate(10, 10)'>djorgeleal</text>
+    <text x='540' y='270' text-anchor='middle' font-family='Impact, "Arial Black", sans-serif' font-weight='900' font-size='155' letter-spacing='-4' fill='#c20622' transform='skewY(-3) translate(5, 5)'>djorgeleal</text>
+    <!-- Front Face -->
+    <text x='540' y='270' text-anchor='middle' font-family='Impact, "Arial Black", sans-serif' font-weight='900' font-size='155' letter-spacing='-4' fill='url(#bevelTop)' stroke='#ff526d' stroke-width='2' transform='skewY(-3)'>djorgeleal</text>
+  </g>
+
+  <!-- DJ Silhouette / Halftone Stippled Portrait -->
+  <g id='dj-portrait' transform='translate(140, 260)'>
+    <!-- Body & Jacket with folds and collar -->
+    <path d='M80 1090 C120 850 180 720 270 650 C290 635 340 600 370 590 C430 580 490 600 560 660 C640 730 700 870 760 1090 Z' fill='#0e0e12' stroke='#26262e' stroke-width='3'/>
+    
+    <!-- Lanyard / Straps (KOKIN style) -->
+    <path d='M330 630 L375 1090 L395 1090 L350 630 Z' fill='#17171d'/>
+    <path d='M337 650 L380 1090' stroke='#ff2a4b' stroke-width='3' stroke-dasharray='16 8' opacity='0.85'/>
+    <path d='M470 630 L425 1090 L405 1090 L450 630 Z' fill='#17171d'/>
+    <path d='M463 650 L420 1090' stroke='#ff2a4b' stroke-width='3' stroke-dasharray='16 8' opacity='0.85'/>
+
+    <!-- Neck & Beard -->
+    <path d='M330 460 C330 540 370 610 400 620 C430 610 470 540 470 460 Z' fill='#1c1b22'/>
+    <!-- Dense Beard texture -->
+    <path d='M295 410 C295 500 330 570 400 570 C470 570 505 500 505 410 C480 435 440 450 400 450 C360 450 320 435 295 410 Z' fill='#121117' stroke='#ff1a3c' stroke-width='1.5' stroke-opacity='0.3'/>
+    
+    <!-- Head and Cap (facing 3/4 left, backwards cap) -->
+    <!-- Head Base -->
+    <ellipse cx='400' cy='360' rx='120' ry='140' fill='#2a2933'/>
+    
+    <!-- Backwards Snapback Cap -->
+    <!-- Cap dome -->
+    <path d='M285 340 C270 210 520 200 520 340 C520 355 285 355 285 340 Z' fill='#0d0d10' stroke='#33333f' stroke-width='3'/>
+    <!-- Cap brim turned backwards with angle -->
+    <path d='M490 320 Q650 300 680 345 Q530 365 480 340 Z' fill='#131318' stroke='#26262e' stroke-width='2'/>
+    <!-- Snapback adjustment band -->
+    <rect x='340' y='275' width='110' height='22' rx='6' fill='#1e1e24'/>
+    <circle cx='360' cy='286' r='4' fill='#0a0a0d'/>
+    <circle cx='378' cy='286' r='4' fill='#0a0a0d'/>
+    <circle cx='396' cy='286' r='4' fill='#0a0a0d'/>
+    <circle cx='414' cy='286' r='4' fill='#0a0a0d'/>
+    <circle cx='432' cy='286' r='4' fill='#0a0a0d'/>
+
+    <!-- Sunglasses (Modern thick black frames angled) -->
+    <g transform='translate(230, 310)'>
+      <!-- Left frame & lens -->
+      <rect x='30' y='20' width='80' height='58' rx='14' fill='#050507' stroke='#40404a' stroke-width='5'/>
+      <!-- Lens gradient reflection -->
+      <rect x='36' y='26' width='68' height='46' rx='8' fill='#15151a'/>
+      <line x1='40' y1='32' x2='95' y2='62' stroke='#ffffff' stroke-width='3' stroke-linecap='round' opacity='0.4'/>
+      <!-- Bridge -->
+      <path d='M110 38 Q130 32 150 38' stroke='#40404a' stroke-width='6' fill='none'/>
+      <!-- Right frame & lens -->
+      <rect x='150' y='20' width='80' height='58' rx='14' fill='#050507' stroke='#40404a' stroke-width='5'/>
+      <rect x='156' y='26' width='68' height='46' rx='8' fill='#15151a'/>
+      <line x1='160' y1='32' x2='215' y2='62' stroke='#ffffff' stroke-width='3' stroke-linecap='round' opacity='0.3'/>
+    </g>
+
+    <!-- Stippled / Halftone Light Highlight over face & nose -->
+    <path d='M340 375 L365 420 L350 428 Z' fill='#555463' opacity='0.7'/>
+    <circle cx='360' cy='395' r='2' fill='#fff' opacity='0.8'/>
+  </g>
+
+  <!-- Blood Red Paint Splatters, Drips & Dynamic Liquid Explosions -->
+  <g id='splatters' fill='url(#bloodGrad)' filter='url(#bloodGlow)'>
+    <!-- Big explosive splash bottom right -->
+    <path d='M750 900 C830 840 920 860 970 800 C980 780 1010 740 1020 780 C1035 840 980 920 1040 950 C1070 965 1060 1010 1000 1020 C960 1030 920 1080 870 1100 C820 1120 780 1040 750 900 Z'/>
+    
+    <!-- Splash bottom left -->
+    <path d='M250 880 C170 820 100 840 40 790 C20 770 10 820 40 860 C90 920 40 980 20 1020 C60 1050 140 1020 190 1070 C230 1110 260 1000 250 880 Z'/>
+
+    <!-- Dynamic splash droplets and streaks -->
+    <circle cx='980' cy='720' r='14'/>
+    <circle cx='1025' cy='690' r='8'/>
+    <circle cx='920' cy='740' r='18'/>
+    <circle cx='860' cy='780' r='12'/>
+    <circle cx='1040' cy='850' r='16'/>
+    <circle cx='990' cy='630' r='10'/>
+    <circle cx='940' cy='610' r='6'/>
+    <circle cx='910' cy='670' r='11'/>
+    <circle cx='1030' cy='560' r='7'/>
+    <circle cx='880' cy='830' r='15'/>
+    
+    <!-- Left droplets -->
+    <circle cx='120' cy='750' r='16'/>
+    <circle cx='70' cy='720' r='10'/>
+    <circle cx='50' cy='660' r='8'/>
+    <circle cx='160' cy='790' r='12'/>
+    <circle cx='90' cy='820' r='14'/>
+    <circle cx='140' cy='680' r='7'/>
+    <circle cx='190' cy='710' r='9'/>
+
+    <!-- Fine splatter spray around shoulders -->
+    <circle cx='290' cy='760' r='6'/>
+    <circle cx='320' cy='730' r='4'/>
+    <circle cx='305' cy='795' r='5'/>
+    <circle cx='710' cy='780' r='7'/>
+    <circle cx='730' cy='740' r='5'/>
+    <circle cx='690' cy='810' r='6'/>
+  </g>
+
+  <!-- Ambient Light Spikes & Atmospheric Particles -->
+  <g opacity='0.75'>
+    <circle cx='200' cy='180' r='2' fill='#fff'/>
+    <circle cx='240' cy='220' r='3' fill='#ff8090'/>
+    <circle cx='180' cy='310' r='1.5' fill='#fff'/>
+    <circle cx='280' cy='120' r='2.5' fill='#fff'/>
+    <circle cx='320' cy='190' r='1.5' fill='#ff8090'/>
+    <circle cx='410' cy='140' r='2' fill='#fff'/>
+    <circle cx='520' cy='110' r='3' fill='#fff'/>
+    <circle cx='650' cy='170' r='2' fill='#ff4060'/>
+    <circle cx='720' cy='230' r='2' fill='#fff'/>
+    <circle cx='820' cy='190' r='2.5' fill='#ff3050'/>
+    <circle cx='390' cy='480' r='1.5' fill='#fff'/>
+    <circle cx='620' cy='520' r='2' fill='#ff5070'/>
+    <circle cx='450' cy='680' r='2' fill='#fff'/>
+  </g>
+
+  <!-- Vignette dark bottom fade for seamless player docking -->
+  <linearGradient id='bottomFade' x1='0%' y1='0%' x2='0%' y2='100%'>
+    <stop offset='0%' stop-color='#000000' stop-opacity='0'/>
+    <stop offset='70%' stop-color='#000000' stop-opacity='0.65'/>
+    <stop offset='100%' stop-color='#000000' stop-opacity='0.95'/>
+  </linearGradient>
+  <rect y='900' width='1080' height='450' fill='url(#bottomFade)'/>
+</svg>

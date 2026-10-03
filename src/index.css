@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Syne', sans-serif;
+    --font-heading: 'Bebas Neue', sans-serif;
+    --font-sans: 'Outfit', sans-serif;
+  }
+  
+  body {
+    font-family: var(--font-sans);
+    background-color: #030304;
+    color: #ffffff;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+.font-display {
+  font-family: 'Syne', sans-serif;
+}
+
+.font-heading {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+/* Strobe flash animation for brutal entrance */
+@keyframes brutal-strobe {
+  0% { opacity: 1; background-color: #ffffff; }
+  15% { opacity: 0.1; background-color: #ff0033; }
+  30% { opacity: 0.9; background-color: #ffffff; }
+  45% { opacity: 0.2; background-color: #000000; }
+  60% { opacity: 0.8; background-color: #ff0022; }
+  80% { opacity: 0.3; background-color: #ffffff; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+.animate-brutal-strobe {
+  animation: brutal-strobe 0.8s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+/* Screen shake for brutal impact */
+@keyframes brutal-shake {
+  0% { transform: translate(0, 0) scale(1.08) rotate(0deg); }
+  10% { transform: translate(-14px, -18px) scale(1.06) rotate(-1.5deg); }
+  20% { transform: translate(16px, 12px) scale(1.05) rotate(1.2deg); }
+  30% { transform: translate(-12px, 14px) scale(1.04) rotate(-0.8deg); }
+  40% { transform: translate(10px, -10px) scale(1.03) rotate(0.6deg); }
+  50% { transform: translate(-6px, 6px) scale(1.02) rotate(-0.4deg); }
+  60% { transform: translate(4px, -4px) scale(1.01) rotate(0.2deg); }
+  75% { transform: translate(-2px, 2px) scale(1.005) rotate(0deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+.animate-brutal-shake {
+  animation: brutal-shake 0.85s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Chromatic Aberration Glitch */
+@keyframes glitch-split {
+  0% {
+    text-shadow: 0 0 20px #ff0033;
+  }
+  20% {
+    text-shadow: -6px 0 #00f0ff, 6px 0 #ff0033, 0 0 35px #ff0033;
+  }
+  40% {
+    text-shadow: 4px -2px #00f0ff, -4px 2px #ff0033, 0 0 45px #ff1744;
+  }
+  60% {
+    text-shadow: -3px 1px #00f0ff, 3px -1px #ff0033, 0 0 30px #ff0033;
+  }
+  80% {
+    text-shadow: 2px 0 #00f0ff, -2px 0 #ff0033, 0 0 25px #ff0033;
+  }
+  100% {
+    text-shadow: 0 0 30px rgba(255, 0, 50, 0.8), 0 0 60px rgba(255, 0, 30, 0.4);
+  }
+}
+
+.text-glitch-impact {
+  animation: glitch-split 1.4s ease-out forwards;
+}
+
+/* Glowing Neon Text Impact */
+.text-neon-impact {
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 20, 60, 0.9),
+    0 0 40px rgba(255, 0, 40, 0.7),
+    0 0 80px rgba(230, 0, 0, 0.5),
+    0 0 120px rgba(180, 0, 0, 0.35);
+}
+
+.text-subtle-glow {
+  text-shadow: 0 0 15px rgba(255, 26, 60, 0.6);
+}
+
+/* Glassmorphism for Apple player */
+.apple-glass {
+  background: rgba(18, 18, 20, 0.78);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 1px 1px 0 rgba(255, 255, 255, 0.15) inset;
+}
+
+.apple-glass-card {
+  background: rgba(28, 28, 32, 0.85);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+}
+
+/* Custom range input slider for Apple scrubber & volume */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.18);
+  transition: height 0.15s ease;
+}
+
+.group:hover input[type="range"]::-webkit-slider-runnable-track,
+input[type="range"]:hover::-webkit-slider-runnable-track {
+  height: 6px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  margin-top: -4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.group:hover input[type="range"]::-webkit-slider-thumb,
+input[type="range"]:hover::-webkit-slider-thumb,
+input[type="range"]:active::-webkit-slider-thumb {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Pulse animation for live equalizer bars */
+@keyframes soundwave {
+  0%, 100% { height: 4px; }
+  50% { height: 20px; }
+}
+
+.animate-wave-1 { animation: soundwave 0.8s ease-in-out infinite; }
+.animate-wave-2 { animation: soundwave 0.6s ease-in-out 0.15s infinite; }
+.animate-wave-3 { animation: soundwave 0.9s ease-in-out 0.3s infinite; }
+.animate-wave-4 { animation: soundwave 0.7s ease-in-out 0.45s infinite; }
+
+/* Responsive background positioning to frame DJ Jorge Leal's face prominently high up */
+.dj-bg-framed {
+  background-position: center top;
+  background-size: cover;
+  transform: translateY(-8%) scale(1.18);
+  transform-origin: center center;
+}
+
+@media (min-width: 640px) {
+  .dj-bg-framed {
+    transform: translateY(-11%) scale(1.22);
+  }
+}
+
+@media (min-width: 768px) {
+  .dj-bg-framed {
+    transform: translateY(-13%) scale(1.24);
+  }
+}
+
+/* Computer / Desktop mode: raised significantly upwards so the photo and character face sit high in clear view */
+@media (min-width: 1024px) {
+  .dj-bg-framed {
+    background-size: cover;
+    background-position: 34% 0%;
+    transform: translateY(-19%) scale(1.28);
+    transform-origin: 34% 15%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .dj-bg-framed {
+    background-size: cover;
+    background-position: 34% 0%;
+    transform: translateY(-24%) scale(1.34);
+    transform-origin: 34% 15%;
+  }
+}
+
+@media (min-width: 1536px) {
+  .dj-bg-framed {
+    background-size: cover;
+    background-position: 34% 0%;
+    transform: translateY(-28%) scale(1.38);
+    transform-origin: 34% 15%;
+  }
+}
+

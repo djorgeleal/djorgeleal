@@ -1,0 +1,6 @@
+{
+  "name": "DJ Jorge Leal - Siente La Música",
+  "description": "Landing page oficial de DJ Jorge Leal con impactante visual, entrada brutal y reproductor de música estilo Apple.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
