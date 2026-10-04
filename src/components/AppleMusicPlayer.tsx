@@ -113,15 +113,15 @@ export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
   return (
     <>
       {/* Floating Apple-Style Docked Player at bottom */}
-      <footer className="fixed bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 w-[95%] max-w-5xl z-40">
-        <div className="apple-glass rounded-2xl px-3 sm:px-5 py-2.5 sm:py-3 shadow-2xl transition-all duration-300">
-          <div className="flex items-center justify-between gap-2 sm:gap-4">
+      <footer className="fixed bottom-2.5 sm:bottom-5 left-1/2 -translate-x-1/2 w-[96%] max-w-5xl z-40">
+        <div className="apple-glass rounded-2xl px-2.5 sm:px-5 py-2 sm:py-3 shadow-2xl transition-all duration-300">
+          <div className="flex items-center justify-between gap-1.5 sm:gap-4">
             
             {/* 1. Track Info & Artwork (Left) */}
-            <div className="flex items-center gap-3 min-w-0 max-w-[28%] sm:max-w-[30%]">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0 max-w-[28%] sm:max-w-[30%]">
               <div 
                 onClick={() => setIsExpanded(true)}
-                className="relative group cursor-pointer w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-xl overflow-hidden bg-neutral-800 shadow-md ring-1 ring-white/15 transition-transform duration-200 group-hover:scale-105"
+                className="relative group cursor-pointer w-10 h-10 sm:w-14 sm:h-14 shrink-0 rounded-xl overflow-hidden bg-neutral-800 shadow-md ring-1 ring-white/15 transition-transform duration-200 group-hover:scale-105"
               >
                 <img
                   src={cover}
@@ -163,9 +163,9 @@ export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
             </div>
 
             {/* 2. Apple Transport & Timeline Controls (Center) */}
-            <div className="flex flex-col items-center flex-1 max-w-md">
+            <div className="flex flex-col items-center flex-1 min-w-0 max-w-md px-1 sm:px-2">
               {/* Transport Buttons */}
-              <div className="flex items-center gap-2 sm:gap-5 mb-1">
+              <div className="flex items-center gap-1 sm:gap-5 mb-0.5 sm:mb-1">
                 <button
                   onClick={() => audioEngine.setShuffle(!isShuffle)}
                   className={`p-1.5 rounded-full transition-colors cursor-pointer ${
@@ -251,19 +251,24 @@ export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
             </div>
 
             {/* 3. Audio & Apple UI Extras (Right) */}
-            <div className="flex items-center justify-end gap-2 sm:gap-3 min-w-0 max-w-[34%] sm:max-w-[36%]">
+            <div className="flex items-center justify-end gap-1.5 sm:gap-3 shrink-0">
               {/* Highlighted Tracklist Button */}
               <button
                 onClick={() => setShowQueue(!showQueue)}
-                className={`group relative flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-md shrink-0 ${
+                className={`group relative flex items-center justify-center gap-1 sm:gap-1.5 px-2 py-1.5 sm:px-3 sm:py-1.5 rounded-xl font-bold uppercase transition-all duration-300 cursor-pointer shadow-md shrink-0 ${
                   showQueue
                     ? 'bg-red-600 text-white shadow-lg shadow-red-600/50 ring-2 ring-white/60 scale-105'
                     : 'bg-gradient-to-r from-red-600 via-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white shadow-md shadow-red-600/40 hover:shadow-red-600/60 hover:scale-105 active:scale-95 border border-red-400/60'
                 }`}
                 title="Lista de temas / Tracklist"
               >
-                <ListMusic className="w-4 h-4 animate-pulse group-hover:scale-110 transition-transform text-white shrink-0" />
-                <span className="font-mono text-[11px] font-black tracking-widest text-white drop-shadow-sm">TRACK LIST</span>
+                <ListMusic className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-pulse group-hover:scale-110 transition-transform text-white shrink-0" />
+                <span className="hidden sm:inline font-mono text-[11px] font-black tracking-widest text-white drop-shadow-sm">
+                  TRACK LIST
+                </span>
+                <span className="inline sm:hidden font-mono text-[10px] font-black tracking-tight text-white drop-shadow-sm">
+                  LISTA
+                </span>
                 <span className="flex h-1.5 w-1.5 relative shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white"></span>
@@ -297,10 +302,10 @@ export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
               {/* Expand Fullscreen / Now Playing */}
               <button
                 onClick={() => setIsExpanded(true)}
-                className="p-2 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                className="p-1.5 sm:p-2 text-neutral-400 hover:text-white transition-colors cursor-pointer shrink-0"
                 title="Modo pantalla completa"
               >
-                <Maximize2 className="w-4 h-4" />
+                <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </button>
             </div>
 
@@ -310,7 +315,7 @@ export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
 
       {/* Up Next / Playlist Queue Flyout */}
       {showQueue && (
-        <div className="fixed bottom-24 right-4 sm:right-8 z-40 w-88 max-w-[92vw] apple-glass-card rounded-2xl p-4 shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-300">
+        <div className="fixed bottom-20 sm:bottom-24 left-3 right-3 sm:left-auto sm:right-8 z-40 sm:w-88 max-w-full sm:max-w-[92vw] apple-glass-card rounded-2xl p-3.5 sm:p-4 shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-300">
           <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
             <div className="flex items-center gap-2 text-xs font-semibold text-neutral-300 tracking-wider uppercase">
               <ListMusic className="w-3.5 h-3.5 text-red-500" />
