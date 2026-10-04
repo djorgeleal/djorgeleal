@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Sparkles } from 'lucide-react';
-import { audioEngine } from '../utils/audioEngine';
 
 interface BrutalEntranceProps {
   onComplete: () => void;
@@ -12,18 +11,7 @@ export const BrutalEntrance: React.FC<BrutalEntranceProps> = ({ onComplete }) =>
   const onCompleteRef = useRef(onComplete);
   onCompleteRef.current = onComplete;
 
-  const hasFiredSoundRef = useRef(false);
-
   useEffect(() => {
-    // Only fire the impact sound once
-    if (!hasFiredSoundRef.current) {
-      hasFiredSoundRef.current = true;
-      try {
-        audioEngine.playBrutalImpactSound();
-      } catch {
-        // Safe audio policy
-      }
-    }
 
     const tImpact = setTimeout(() => {
       setStage('impact');
