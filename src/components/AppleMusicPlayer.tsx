@@ -8,7 +8,6 @@ import {
   VolumeX,
   Shuffle,
   Repeat,
-  Quote,
   ListMusic,
   Maximize2,
   Minimize2,
@@ -21,7 +20,7 @@ import { audioEngine, DJ_TRACKS, TrackInfo } from '../utils/audioEngine';
 
 interface AppleMusicPlayerProps {
   customCoverUrl?: string;
-  onOpenImageSettings: () => void;
+  onOpenImageSettings?: () => void;
 }
 
 export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
@@ -34,7 +33,6 @@ export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
   const repeatMode = playback.repeatMode ?? 'all';
   const [volume, setVolume] = useState(0.85);
   const [isMuted, setIsMuted] = useState(false);
-  const [showLyrics, setShowLyrics] = useState(false);
   const [showQueue, setShowQueue] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [audioFreqs, setAudioFreqs] = useState<number[]>(new Array(16).fill(0));
@@ -253,27 +251,23 @@ export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
             </div>
 
             {/* 3. Audio & Apple UI Extras (Right) */}
-            <div className="flex items-center justify-end gap-1.5 sm:gap-3 min-w-0 max-w-[28%] sm:max-w-[30%]">
-              {/* Lyrics Button */}
-              <button
-                onClick={() => setShowLyrics(!showLyrics)}
-                className={`p-2 rounded-lg transition-colors cursor-pointer ${
-                  showLyrics ? 'bg-red-500/20 text-red-400' : 'text-neutral-400 hover:text-white'
-                }`}
-                title="Letras en tiempo real"
-              >
-                <Quote className="w-4 h-4" />
-              </button>
-
-              {/* Queue / Tracklist Button */}
+            <div className="flex items-center justify-end gap-2 sm:gap-3 min-w-0 max-w-[34%] sm:max-w-[36%]">
+              {/* Highlighted Tracklist Button */}
               <button
                 onClick={() => setShowQueue(!showQueue)}
-                className={`p-2 rounded-lg transition-colors cursor-pointer ${
-                  showQueue ? 'bg-red-500/20 text-red-400' : 'text-neutral-400 hover:text-white'
+                className={`group relative flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-md shrink-0 ${
+                  showQueue
+                    ? 'bg-red-600 text-white shadow-lg shadow-red-600/50 ring-2 ring-white/60 scale-105'
+                    : 'bg-gradient-to-r from-red-600 via-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white shadow-md shadow-red-600/40 hover:shadow-red-600/60 hover:scale-105 active:scale-95 border border-red-400/60'
                 }`}
-                title="Lista de temas"
+                title="Lista de temas / Tracklist"
               >
-                <ListMusic className="w-4 h-4" />
+                <ListMusic className="w-4 h-4 animate-pulse group-hover:scale-110 transition-transform text-white shrink-0" />
+                <span className="font-mono text-[11px] font-black tracking-widest text-white drop-shadow-sm">TRACK LIST</span>
+                <span className="flex h-1.5 w-1.5 relative shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white"></span>
+                </span>
               </button>
 
               {/* Volume Slider with Icon */}
@@ -313,39 +307,6 @@ export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
           </div>
         </div>
       </footer>
-
-      {/* Floating Synced Lyrics Flyout (Apple Music Style) */}
-      {showLyrics && (
-        <div className="fixed bottom-24 right-4 sm:right-8 z-40 w-80 max-w-[90vw] apple-glass-card rounded-2xl p-4 shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-300">
-          <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
-            <div className="flex items-center gap-2 text-xs font-semibold text-neutral-300 tracking-wider uppercase">
-              <Quote className="w-3.5 h-3.5 text-red-500" />
-              <span>Letras en Vivo</span>
-            </div>
-            <button
-              onClick={() => setShowLyrics(false)}
-              className="text-neutral-500 hover:text-white text-xs cursor-pointer"
-            >
-              Cerrar
-            </button>
-          </div>
-
-          <div className="space-y-3 py-1 max-h-60 overflow-y-auto pr-1">
-            {currentLyrics.map((line, idx) => (
-              <p
-                key={idx}
-                className={`text-sm sm:text-base font-display transition-all duration-300 ${
-                  idx === lyricIndex
-                    ? 'text-white font-bold scale-105 text-subtle-glow pl-2 border-l-2 border-red-500'
-                    : 'text-neutral-500'
-                }`}
-              >
-                {line}
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Up Next / Playlist Queue Flyout */}
       {showQueue && (
@@ -547,12 +508,7 @@ export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
 
               <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-neutral-400">
                 <span>Audio Espacial · Dolby Atmos Compatible</span>
-                <button
-                  onClick={onOpenImageSettings}
-                  className="text-red-400 hover:underline cursor-pointer"
-                >
-                  Personalizar Portada
-                </button>
+                <span className="text-[11px] font-mono text-neutral-500">24-Bit / 96kHz Lossless</span>
               </div>
             </div>
 
