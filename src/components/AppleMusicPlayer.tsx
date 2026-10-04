@@ -30,8 +30,8 @@ export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
 }) => {
   const [playback, setPlayback] = useState(audioEngine.getPlaybackState());
   const [isLiked, setIsLiked] = useState(true);
-  const [isShuffle, setIsShuffle] = useState(false);
-  const [repeatMode, setRepeatMode] = useState<'off' | 'all' | 'one'>('all');
+  const isShuffle = playback.isShuffle ?? false;
+  const repeatMode = playback.repeatMode ?? 'all';
   const [volume, setVolume] = useState(0.85);
   const [isMuted, setIsMuted] = useState(false);
   const [showLyrics, setShowLyrics] = useState(false);
@@ -169,7 +169,7 @@ export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
               {/* Transport Buttons */}
               <div className="flex items-center gap-2 sm:gap-5 mb-1">
                 <button
-                  onClick={() => setIsShuffle(!isShuffle)}
+                  onClick={() => audioEngine.setShuffle(!isShuffle)}
                   className={`p-1.5 rounded-full transition-colors cursor-pointer ${
                     isShuffle ? 'text-red-500' : 'text-neutral-400 hover:text-white'
                   }`}
@@ -211,7 +211,7 @@ export const AppleMusicPlayer: React.FC<AppleMusicPlayerProps> = ({
                   onClick={() => {
                     const modes: ('off' | 'all' | 'one')[] = ['off', 'all', 'one'];
                     const next = modes[(modes.indexOf(repeatMode) + 1) % modes.length];
-                    setRepeatMode(next);
+                    audioEngine.setRepeatMode(next);
                   }}
                   className={`p-1.5 rounded-full transition-colors cursor-pointer ${
                     repeatMode !== 'off' ? 'text-red-500' : 'text-neutral-400 hover:text-white'

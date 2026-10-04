@@ -283,6 +283,8 @@ class DJAudioEngine {
   private playbackTime = 0;
   private timerId: number | null = null;
   private loopIntervalId: number | null = null;
+  private repeatMode: 'off' | 'all' | 'one' = 'all';
+  private isShuffle = false;
 
   private audioElement: HTMLAudioElement | null = null;
   private mediaSource: MediaElementAudioSourceNode | null = null;
@@ -335,7 +337,7 @@ class DJAudioEngine {
       });
 
       this.audioElement.addEventListener('ended', () => {
-        this.nextTrack();
+        this.handleTrackEnded();
       });
 
       this.audioElement.addEventListener('play', () => {
@@ -344,6 +346,10 @@ class DJAudioEngine {
       });
 
       this.audioElement.addEventListener('pause', () => {
+        // Do not register pause if the track just ended, since handleTrackEnded handles the next track
+        if (this.audioElement && this.audioElement.ended) {
+          return;
+        }
         this.isPlaying = false;
         this.notify();
       });
@@ -378,6 +384,57 @@ class DJAudioEngine {
     this.listeners.forEach((cb) => cb());
   }
 
+  public setRepeatMode(mode: 'off' | 'all' | 'one') {
+    this.repeatMode = mode;
+    this.notify();
+  }
+
+  public getRepeatMode(): 'off' | 'all' | 'one' {
+    return this.repeatMode;
+  }
+
+  public setShuffle(shuffle: boolean) {
+    this.isShuffle = shuffle;
+    this.notify();
+  }
+
+  public getShuffle(): boolean {
+    return this.isShuffle;
+  }
+
+  public handleTrackEnded() {
+    if (this.repeatMode === 'one') {
+      this.seek(0);
+      this.play();
+      return;
+    }
+
+    if (this.isShuffle) {
+      if (DJ_TRACKS.length > 1) {
+        let nextIdx = Math.floor(Math.random() * DJ_TRACKS.length);
+        while (nextIdx === this.currentTrackIdx) {
+          nextIdx = Math.floor(Math.random() * DJ_TRACKS.length);
+        }
+        this.selectTrack(nextIdx);
+      } else {
+        this.seek(0);
+        this.play();
+      }
+      return;
+    }
+
+    const isLastTrack = this.currentTrackIdx === DJ_TRACKS.length - 1;
+    if (this.repeatMode === 'off' && isLastTrack) {
+      this.isPlaying = false;
+      this.seek(0);
+      this.notify();
+      return;
+    }
+
+    // Automatically transition to the next track and keep playing!
+    this.nextTrack(true);
+  }
+
   public getPlaybackState() {
     const curTrack = DJ_TRACKS[this.currentTrackIdx];
     const duration =
@@ -392,6 +449,8 @@ class DJAudioEngine {
       currentTime: this.audioElement ? this.audioElement.currentTime : this.playbackTime,
       duration: duration || 180,
       volume: this.masterGain ? this.masterGain.gain.value : 0.85,
+      repeatMode: this.repeatMode,
+      isShuffle: this.isShuffle,
     };
   }
 
@@ -736,22 +795,30 @@ class DJAudioEngine {
     this.notify();
   }
 
-  public nextTrack() {
+  public nextTrack(forcePlay = false) {
     this.stopSynthLoop();
-    this.currentTrackIdx = (this.currentTrackIdx + 1) % DJ_TRACKS.length;
+    if (this.isShuffle && DJ_TRACKS.length > 1) {
+      let nextIdx = Math.floor(Math.random() * DJ_TRACKS.length);
+      while (nextIdx === this.currentTrackIdx) {
+        nextIdx = Math.floor(Math.random() * DJ_TRACKS.length);
+      }
+      this.currentTrackIdx = nextIdx;
+    } else {
+      this.currentTrackIdx = (this.currentTrackIdx + 1) % DJ_TRACKS.length;
+    }
     this.playbackTime = 0;
     if (this.audioElement) {
       this.audioElement.currentTime = 0;
       this.audioElement.src = DJ_TRACKS[this.currentTrackIdx].audioUrl;
     }
-    if (this.isPlaying) {
+    if (forcePlay || this.isPlaying) {
       this.play();
     } else {
       this.notify();
     }
   }
 
-  public prevTrack() {
+  public prevTrack(forcePlay = false) {
     this.stopSynthLoop();
     if (this.playbackTime > 4) {
       this.seek(0);
@@ -763,7 +830,7 @@ class DJAudioEngine {
         this.audioElement.src = DJ_TRACKS[this.currentTrackIdx].audioUrl;
       }
     }
-    if (this.isPlaying) {
+    if (forcePlay || this.isPlaying) {
       this.play();
     } else {
       this.notify();
